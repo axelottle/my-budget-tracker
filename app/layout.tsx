@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
+import { TransactionsProvider } from "@/lib/transactions-context";
 import "./globals.css";
 
 // Display face: used sparingly for headings and the big balance figure.
@@ -39,7 +40,7 @@ export default function RootLayout({
       <body
         className={`${fraunces.variable} ${inter.variable} ${plexMono.variable}`}
       >
-        {children}
+        <TransactionsProvider>{children}</TransactionsProvider>
       </body>
     </html>
   );

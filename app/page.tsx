@@ -1,16 +1,12 @@
-import DashboardCard from "@/components/DashboardCard";
+"use client";
 
-// Phase 2: layout only — these numbers are placeholders.
-// Phase 3+ replaces them with real transaction state.
-const placeholderData = {
-  totalBalance: 25500,
-  income: 35000,
-  expenses: 9500,
-  monthlyBudget: 30000,
-  remainingBudget: 20500,
-};
+import DashboardCard from "@/components/DashboardCard";
+import { useTransactions } from "@/lib/transactions-context";
 
 export default function Home() {
+  const { totalBalance, totalIncome, totalExpenses, budget, remainingBudget } =
+    useTransactions();
+
   return (
     <div className="min-h-screen bg-paper">
       <header className="border-b border-line bg-surface">
@@ -35,26 +31,20 @@ export default function Home() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <DashboardCard
             label="Total Balance"
-            amount={placeholderData.totalBalance}
+            amount={totalBalance}
             tone="default"
           />
-          <DashboardCard
-            label="Income"
-            amount={placeholderData.income}
-            tone="income"
-          />
+          <DashboardCard label="Income" amount={totalIncome} tone="income" />
           <DashboardCard
             label="Expenses"
-            amount={placeholderData.expenses}
+            amount={totalExpenses}
             tone="expense"
           />
           <DashboardCard
             label="Monthly Budget"
-            amount={placeholderData.monthlyBudget}
+            amount={budget.monthlyLimit}
             tone="budget"
-            helper={`₱${placeholderData.remainingBudget.toLocaleString(
-              "en-PH"
-            )} remaining`}
+            helper={`₱${remainingBudget.toLocaleString("en-PH")} remaining`}
           />
         </div>
       </main>
