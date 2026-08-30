@@ -1,6 +1,7 @@
 "use client";
 
 import DashboardCard from "@/components/DashboardCard";
+import TransactionList from "@/components/TransactionList";
 import { useTransactions } from "@/lib/transactions-context";
 
 export default function Home() {
@@ -47,6 +48,8 @@ export default function Home() {
             helper={`₱${remainingBudget.toLocaleString("en-PH")} remaining`}
           />
         </div>
+
+        <TransactionList />
       </main>
     </div>
   );
