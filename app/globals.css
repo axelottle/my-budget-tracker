@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-paper text-ink font-body;
+    font-feature-settings: "tnum" 1; /* tabular numbers wherever body font sets amounts */
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-ink;
+  }
+}
+
+@layer utilities {
+  /* Ledger hairline: a thin rule used between rows/sections instead of heavy borders */
+  .rule {
+    @apply border-b border-line;
+  }
+
+  /* Amounts should always render in the monospace face with tabular figures */
+  .amount {
+    @apply font-mono tabular-nums;
+  }
+}
