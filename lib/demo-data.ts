@@ -8,7 +8,7 @@ export const DEMO_TRANSACTIONS: Transaction[] = [
   {
     id: "1",
     description: "Salary",
-    amount: 50000,
+    amount: 35000,
     category: "Salary",
     type: "income",
     date: "2026-08-01",

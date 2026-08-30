@@ -3,16 +3,19 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useMemo,
   useReducer,
   type ReactNode,
 } from "react";
 import type { Budget, NewTransaction, Transaction } from "@/types/transaction";
 import { DEMO_TRANSACTIONS } from "@/lib/demo-data";
+import { STORAGE_KEYS, readFromStorage, writeToStorage } from "@/lib/storage";
 
 interface State {
   transactions: Transaction[];
   budget: Budget;
+  isHydrated: boolean;
 }
 
 type Action =
@@ -20,7 +23,8 @@ type Action =
   | { type: "UPDATE_TRANSACTION"; payload: Transaction }
   | { type: "DELETE_TRANSACTION"; payload: { id: string } }
   | { type: "SET_TRANSACTIONS"; payload: Transaction[] }
-  | { type: "SET_BUDGET"; payload: Budget };
+  | { type: "SET_BUDGET"; payload: Budget }
+  | { type: "HYDRATE"; payload: { transactions: Transaction[]; budget: Budget } };
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
@@ -53,6 +57,14 @@ function reducer(state: State, action: Action): State {
     case "SET_BUDGET": {
       return { ...state, budget: action.payload };
     }
+    case "HYDRATE": {
+      return {
+        ...state,
+        transactions: action.payload.transactions,
+        budget: action.payload.budget,
+        isHydrated: true,
+      };
+    }
     default:
       return state;
   }
@@ -77,16 +89,50 @@ const TransactionsContext = createContext<TransactionsContextValue | null>(
   null
 );
 
-// Seeded with demo data for now. Phase 5 changes this initial value to read
-// from localStorage instead (falling back to an empty array, not demo data,
-// for a real first-time visitor).
+// Default, pre-hydration state. This is what both the server render and the
+// very first client render show — it must NOT read localStorage directly
+// (that would cause a hydration mismatch). The effect in the provider below
+// loads the real saved data right after mount.
 const initialState: State = {
-  transactions: DEMO_TRANSACTIONS,
+  transactions: [],
   budget: { monthlyLimit: 30000 },
+  isHydrated: false,
 };
 
 export function TransactionsProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  // Load once, right after mount (client-only — see comment on initialState).
+  // Transactions, budget, and the "loaded" flag are dispatched together in a
+  // single HYDRATE action, so they land in the same render. If they were
+  // three separate dispatches (or a ref flipped outside the reducer), the
+  // save effects below could fire in between with stale, pre-load state and
+  // overwrite the very data we just loaded.
+  useEffect(() => {
+    const storedTransactions = readFromStorage<Transaction[]>(
+      STORAGE_KEYS.transactions,
+      []
+    );
+    const storedBudget = readFromStorage<Budget>(STORAGE_KEYS.budget, {
+      monthlyLimit: 30000,
+    });
+
+    dispatch({
+      type: "HYDRATE",
+      payload: { transactions: storedTransactions, budget: storedBudget },
+    });
+  }, []);
+
+  // Persist on every change, once we're past the initial load.
+  useEffect(() => {
+    if (!state.isHydrated) return;
+    writeToStorage(STORAGE_KEYS.transactions, state.transactions);
+  }, [state.transactions, state.isHydrated]);
+
+  useEffect(() => {
+    if (!state.isHydrated) return;
+    writeToStorage(STORAGE_KEYS.budget, state.budget);
+  }, [state.budget, state.isHydrated]);
 
   // Totals are derived, never stored directly, so they can't drift out of
   // sync with the transaction list.
