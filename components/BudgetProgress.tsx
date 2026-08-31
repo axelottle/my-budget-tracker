@@ -95,8 +95,8 @@ export default function BudgetProgress() {
 
       {!hasBudget ? (
         <p className="text-sm text-ink-faint">
-          No budget set yet. Click "Set budget" to start tracking your
-          monthly spending limit.
+          No budget set yet. Click &ldquo;Set budget&rdquo; to start tracking
+          your monthly spending limit.
         </p>
       ) : (
         <>
