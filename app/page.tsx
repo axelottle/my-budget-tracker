@@ -1,6 +1,7 @@
 "use client";
 
 import DashboardCard from "@/components/DashboardCard";
+import BudgetProgress from "@/components/BudgetProgress";
 import TransactionList from "@/components/TransactionList";
 import { useTransactions } from "@/lib/transactions-context";
 
@@ -49,6 +50,7 @@ export default function Home() {
           />
         </div>
 
+        <BudgetProgress />
         <TransactionList />
       </main>
     </div>
