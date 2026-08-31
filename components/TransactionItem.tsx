@@ -2,26 +2,11 @@
 
 import type { Transaction } from "@/types/transaction";
 import { useTransactions } from "@/lib/transactions-context";
+import { formatPeso, formatDate } from "@/lib/format";
 
 interface TransactionItemProps {
   transaction: Transaction;
   onEdit: (transaction: Transaction) => void;
-}
-
-function formatPeso(amount: number): string {
-  return new Intl.NumberFormat("en-PH", {
-    style: "currency",
-    currency: "PHP",
-    minimumFractionDigits: 2,
-  }).format(amount);
-}
-
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("en-PH", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
 }
 
 export default function TransactionItem({

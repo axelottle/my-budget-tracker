@@ -2,14 +2,7 @@
 
 import { useState } from "react";
 import { useTransactions } from "@/lib/transactions-context";
-
-function formatPeso(amount: number): string {
-  return new Intl.NumberFormat("en-PH", {
-    style: "currency",
-    currency: "PHP",
-    minimumFractionDigits: 2,
-  }).format(amount);
-}
+import { formatPeso } from "@/lib/format";
 
 export default function BudgetProgress() {
   const { budget, totalExpenses, remainingBudget, setBudget } =

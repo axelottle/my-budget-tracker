@@ -3,14 +3,7 @@
 import { useMemo } from "react";
 import { useTransactions } from "@/lib/transactions-context";
 import { getCategorySpending } from "@/lib/spending-summary";
-
-function formatPeso(amount: number): string {
-  return new Intl.NumberFormat("en-PH", {
-    style: "currency",
-    currency: "PHP",
-    minimumFractionDigits: 2,
-  }).format(amount);
-}
+import { formatPeso } from "@/lib/format";
 
 // Cycling opacity steps of the expense color, so higher-spending categories
 // read as visually "heavier" without needing a separate color per category.

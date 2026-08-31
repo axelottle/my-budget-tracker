@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { Transaction, TransactionType } from "@/types/transaction";
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "@/lib/categories";
 import { useTransactions } from "@/lib/transactions-context";
+import { getTodayLocalISO } from "@/lib/format";
 import {
   validateTransactionForm,
   type TransactionFormErrors,
@@ -31,7 +32,7 @@ export default function TransactionForm({
   );
   const [category, setCategory] = useState(transaction?.category ?? "");
   const [date, setDate] = useState(
-    transaction?.date ?? new Date().toISOString().slice(0, 10)
+    transaction?.date ?? getTodayLocalISO()
   );
   const [errors, setErrors] = useState<TransactionFormErrors>({});
 

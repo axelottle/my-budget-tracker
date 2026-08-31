@@ -1,3 +1,5 @@
+import { formatPeso } from "@/lib/format";
+
 type DashboardCardProps = {
   label: string;
   amount: number;
@@ -17,14 +19,6 @@ const toneStyles: Record<
   expense: { text: "text-expense", chip: "bg-expense-soft" },
   budget: { text: "text-budget", chip: "bg-budget-soft" },
 };
-
-function formatPeso(amount: number): string {
-  return new Intl.NumberFormat("en-PH", {
-    style: "currency",
-    currency: "PHP",
-    minimumFractionDigits: 2,
-  }).format(amount);
-}
 
 export default function DashboardCard({
   label,

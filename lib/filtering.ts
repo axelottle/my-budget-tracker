@@ -52,11 +52,15 @@ export function getAvailableMonths(transactions: Transaction[]): MonthOption[] {
   return Array.from(uniqueMonths)
     .sort()
     .reverse()
-    .map((value) => ({
-      value,
-      label: new Date(`${value}-01`).toLocaleDateString("en-PH", {
+    .map((value) => {
+      // Same UTC-parsing pitfall as elsewhere: `new Date("2026-08-01")` is
+      // read as UTC midnight, which can roll back to the wrong month for
+      // some timezones. Building the Date from local parts avoids it.
+      const [year, month] = value.split("-").map(Number);
+      const label = new Date(year, month - 1, 1).toLocaleDateString("en-PH", {
         month: "long",
         year: "numeric",
-      }),
-    }));
+      });
+      return { value, label };
+    });
 }
