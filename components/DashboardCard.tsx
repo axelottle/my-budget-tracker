@@ -35,7 +35,7 @@ export default function DashboardCard({
   const styles = toneStyles[tone];
 
   return (
-    <div className="rounded-card bg-surface p-5 shadow-card">
+    <div className="rounded-card bg-surface p-4 shadow-card sm:p-5">
       <span
         className={`inline-block rounded-full px-2.5 py-1 text-xs font-medium uppercase tracking-wide ${styles.chip} ${styles.text}`}
       >

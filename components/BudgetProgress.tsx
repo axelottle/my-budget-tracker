@@ -46,11 +46,11 @@ export default function BudgetProgress() {
 
   if (isEditing) {
     return (
-      <section className="mt-8 rounded-card bg-surface p-5 shadow-card">
+      <section className="mt-8 rounded-card bg-surface p-4 shadow-card sm:p-5">
         <h2 className="mb-3 font-display text-lg font-semibold text-ink">
           Set Monthly Budget
         </h2>
-        <form onSubmit={handleSave} className="flex items-start gap-2">
+        <form onSubmit={handleSave} className="flex flex-col gap-2 sm:flex-row sm:items-start">
           <div className="flex-1">
             <input
               type="number"
@@ -62,30 +62,32 @@ export default function BudgetProgress() {
             />
             {error && <p className="mt-1 text-sm text-expense">{error}</p>}
           </div>
-          <button
-            type="submit"
-            className="rounded-card bg-ink px-3 py-2 text-sm font-medium text-surface hover:bg-ink/90"
-          >
-            Save
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setDraftLimit(String(budget.monthlyLimit));
-              setError("");
-              setIsEditing(false);
-            }}
-            className="rounded-card border border-line px-3 py-2 text-sm font-medium text-ink-soft hover:text-ink"
-          >
-            Cancel
-          </button>
+          <div className="flex gap-2">
+            <button
+              type="submit"
+              className="flex-1 rounded-card bg-ink px-3 py-2 text-sm font-medium text-surface hover:bg-ink/90 sm:flex-none"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setDraftLimit(String(budget.monthlyLimit));
+                setError("");
+                setIsEditing(false);
+              }}
+              className="flex-1 rounded-card border border-line px-3 py-2 text-sm font-medium text-ink-soft hover:text-ink sm:flex-none"
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </section>
     );
   }
 
   return (
-    <section className="mt-8 rounded-card bg-surface p-5 shadow-card">
+    <section className="mt-8 rounded-card bg-surface p-4 shadow-card sm:p-5">
       <div className="mb-3 flex items-center justify-between">
         <h2 className="font-display text-lg font-semibold text-ink">
           Monthly Budget

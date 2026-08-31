@@ -39,8 +39,8 @@ export default function TransactionItem({
   }
 
   return (
-    <div className="rule flex items-center justify-between gap-4 py-3">
-      <div className="min-w-0">
+    <div className="rule flex flex-wrap items-center justify-between gap-x-4 gap-y-2 py-3">
+      <div className="min-w-0 flex-1">
         <p className="truncate font-body text-sm font-medium text-ink">
           {transaction.description}
         </p>
@@ -49,7 +49,7 @@ export default function TransactionItem({
         </p>
       </div>
 
-      <div className="flex shrink-0 items-center gap-3">
+      <div className="flex shrink-0 items-center gap-3 whitespace-nowrap">
         <span
           className={`amount text-sm font-medium ${
             isIncome ? "text-income" : "text-expense"
@@ -60,13 +60,13 @@ export default function TransactionItem({
         </span>
         <button
           onClick={() => onEdit(transaction)}
-          className="text-xs font-medium text-ink-soft hover:text-ink"
+          className="px-1 py-1 text-xs font-medium text-ink-soft hover:text-ink"
         >
           Edit
         </button>
         <button
           onClick={handleDelete}
-          className="text-xs font-medium text-expense hover:text-expense/80"
+          className="px-1 py-1 text-xs font-medium text-expense hover:text-expense/80"
         >
           Delete
         </button>

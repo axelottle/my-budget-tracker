@@ -53,7 +53,7 @@ export default function TransactionList() {
 
   return (
     <section className="mt-8">
-      <div className="mb-3 flex items-center justify-between">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <h2 className="font-display text-lg font-semibold text-ink">
           Transactions
         </h2>

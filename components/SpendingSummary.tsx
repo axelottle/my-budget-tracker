@@ -29,7 +29,7 @@ export default function SpendingSummary() {
         Spending by Category
       </h2>
 
-      <div className="rounded-card bg-surface p-5 shadow-card">
+      <div className="rounded-card bg-surface p-4 shadow-card sm:p-5">
         {categorySpending.length === 0 ? (
           <p className="py-4 text-center text-sm text-ink-faint">
             No expenses yet. Add one to see your spending breakdown.

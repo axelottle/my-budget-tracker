@@ -14,23 +14,23 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-paper">
       <header className="border-b border-line bg-surface">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6 sm:py-5">
           <h1 className="font-display text-xl font-semibold text-ink">
             Budget Tracker
           </h1>
-          <span className="font-body text-sm text-ink-faint">
-            {new Date().toLocaleDateString("en-PH", {
-              month: "long",
-              year: "numeric",
-            })}
-          </span>
-        </div>
-        <div className="mx-auto flex max-w-5xl justify-end px-6 pb-4">
-          <DemoDataControls />
+          <div className="flex flex-wrap items-center gap-4">
+            <span className="font-body text-sm text-ink-faint">
+              {new Date().toLocaleDateString("en-PH", {
+                month: "long",
+                year: "numeric",
+              })}
+            </span>
+            <DemoDataControls />
+          </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-6 py-8">
+      <main className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
         <h2 className="mb-4 font-display text-lg font-semibold text-ink">
           Overview
         </h2>
