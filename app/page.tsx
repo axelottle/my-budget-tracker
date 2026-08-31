@@ -3,6 +3,8 @@
 import DashboardCard from "@/components/DashboardCard";
 import BudgetProgress from "@/components/BudgetProgress";
 import TransactionList from "@/components/TransactionList";
+import SpendingSummary from "@/components/SpendingSummary";
+import DemoDataControls from "@/components/DemoDataControls";
 import { useTransactions } from "@/lib/transactions-context";
 
 export default function Home() {
@@ -22,6 +24,9 @@ export default function Home() {
               year: "numeric",
             })}
           </span>
+        </div>
+        <div className="mx-auto flex max-w-5xl justify-end px-6 pb-4">
+          <DemoDataControls />
         </div>
       </header>
 
@@ -52,6 +57,7 @@ export default function Home() {
 
         <BudgetProgress />
         <TransactionList />
+        <SpendingSummary />
       </main>
     </div>
   );
